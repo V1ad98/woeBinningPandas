@@ -4,12 +4,8 @@ import math
 import warnings
 import copy
 
-
-
-
-germancredit = pd.read_csv('es_dataset.csv')
-df = germancredit[['defaulted','no_of_loans', 'loan_id','user_id','loan_created_at', "age", "education", "existingCreditAgreement_sum", "instantor_kind1", "previouslyUsedCreditOther"]]
-df = df.set_index("loan_id")
+#germancredit = pd.read_csv('GermanCredit.csv')
+#df = germancredit[['credit_risk', 'amount','duration','savings','purpose']]
 
 def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, bad, good):
     global binning
@@ -159,7 +155,7 @@ def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, sto
             freq_table =freq_table.append(missing,ignore_index=True, sort=False)
             woe_dfrm = pd.DataFrame(freq_table) # Convert frequency table to data frame
             woe_dfrm = woe_dfrm.set_index(["predictor_var_binned"])
-            #woe_dfrm = woe_dfrm[['good', 'bad']]  # Select columns with raw frequencies only
+            
             # Compute columns percents for target classes from crosstab frequencies
             woe_dfrm["col_perc_a"] = woe_dfrm[good]/sum(woe_dfrm[good])
             woe_dfrm["col_perc_b"] = woe_dfrm[bad]/sum(woe_dfrm[bad])
@@ -516,7 +512,7 @@ def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, sto
         look_up_table
         
     return binning
-#↓↓↓1function↓↓↓###################################################################################################################################################################    
+
 def woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, event_class):
 #### Warning message and defaults in case parameters are not specified
     if df.isnull().values.any()==True or type(target_var) is str == False or type(pred_var) is str == False:
@@ -574,27 +570,14 @@ def woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_
         
     bad = int(bad)
     good = int(good)
-    
-    #### Gather names and look-up tables (with binned classes and WOE values) for each predictor variable in a list
-    #if  isinstance(pred_var, pd.DataFrame)==True:
-        #pred_var = (df.drop(target_var,1))  # convert variable names of data frame into a list (without target variable)
-    #else:
-        #pred_var = [pred_var]   # provide variable name(s) as a list
 
     #### Subset: consider only cases without NA in target variable
-    df = df[df[target_var].isna()==False]     
-    #### Call actual binning function and put binning solutions together with respective variable names into a list
+    df = df[df[target_var].isna()==False]
     
-    #binning = pred_var.apply(lambda x: woe_binning_2(df, target_var, x, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, bad, good))
-    #pd.Series(list).apply()
+    #### Call actual binning function and put binning solutions together with respective variable names into a list
     woe_binning_2(df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, bad, good)
-    #### Read names and IV total values in the list and put them together with the binning tables
-    #names_of_pred_var = pred_var.apply(lambda x: x)
-    #iv_total_list = binning.apply(lambda x: x.mean(3))
-    #binning = pd.DataFrame(columns=["names_of_pred_var", "binning", "iv_total_list"])
-    #### Sort via IV total
-    #binning = binning.sort((binning.iv_total_list.dtypes.kind in 'bifc') == True)
+
     return woe_binning_2(df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, bad, good)
 
 #woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, event_class)     
-woe_binning(df, 'defaulted', 'no_of_loans', 0.05, 0, 0.1, 50, 'bad')
+woe_binning(df, 'credit_risk', 'amount', 0.05, 0, 0.1, 50, 'bad')
