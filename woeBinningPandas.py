@@ -4,6 +4,7 @@ import math
 import warnings
 import copy
 
+####!!!!!!!!
 germancredit = pd.read_csv('GermanCredit.csv')
 df = germancredit[['credit_risk', 'amount','duration','savings','purpose']]
 
