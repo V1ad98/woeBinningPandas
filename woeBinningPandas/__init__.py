@@ -4,8 +4,8 @@ import math
 import warnings
 import copy
 
-#germancredit = pd.read_csv('GermanCredit.csv')
-#df = germancredit[['credit_risk', 'amount','duration','savings','purpose']]
+germancredit = pd.read_csv('GermanCredit.csv')
+df = germancredit[['credit_risk', 'amount','duration','savings','purpose']]
 
 def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, bad, good):
     global binning
