@@ -46,4 +46,6 @@ import copy
 
 > df = yourvariable[['columnnames1', 'columnnames2','columnnames3']]
 
-> print(woeBinningPandas.woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, event_class))
+> binning = woeBinningPandas.woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, event_class)
+
+> print(binning)
