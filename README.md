@@ -29,7 +29,7 @@ File woeBinningPandas is ready to go!
 ### Set the df variable and specify the column names from your CSV file, which you want to use.
 > df = yourvariable[['columnnames1', 'columnnames2','columnnames3']]
 ### At THE END of the code in the function call woe_binning set the values of the arguments
-> woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, event_class)
+> binning = woe_binning(df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, event_class)
 
 target_var - df dataframe column in which the values are only 0 or 1
 
@@ -49,7 +49,7 @@ pred_var - df dataframe column in which values can be either numeric or factors
 # Examples
 > import woeBinningPandas
 
-> germancredit = pd.read_csv('GermanCredit.csv')
+> germancredit = woeBinningPandas.pd.read_csv('GermanCredit.csv')
 
 > df = germancredit[['credit_risk', 'amount','duration']]
 
