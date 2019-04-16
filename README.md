@@ -1,5 +1,6 @@
 # woeBinningPandas
-This program allows simplify the work in credit scoring, by finding Information Value (IV) and Weight of evidence (WOE) from a CSV file or data set.
+This code generates a supervised fine and coarse classing of numeric variables and factors with respect to a dichotomous target variable. Its parameters provide flexibility in finding a binning that fits specific data characteristics and practical needs.
+
 The basis of this code was taken woeBinning code (https://github.com/cran/woeBinning/blob/master/R/woe.binning.R) and changed from R to Python.
 # Used programs versions
 Spyder (Python 3.7)
