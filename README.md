@@ -17,7 +17,7 @@ import warnings
 import copy
 # Using
 ### Cloning a repository from GitHub
-####Use Git CMD
+#### Use Git CMD
 
 >cd YOUR LINK FOLDER
 
