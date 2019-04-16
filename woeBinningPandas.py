@@ -4,12 +4,10 @@ import math
 import warnings
 import copy
 
-####!!!!!!!!
 germancredit = pd.read_csv('GermanCredit.csv')
 df = germancredit[['credit_risk', 'amount','duration','savings','purpose']]
 
 def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, bad, good):
-    global binning
     cutpoints_backup = False
     stop_limit_exceeded = False
     list_level_a_collected = False
@@ -42,8 +40,7 @@ def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, sto
         dfrm["predictor_var_binned"] = pd.cut(dfrm["predictor_var"], cutpoints, right=True, labels = None,
             retbins=False, precision=10, include_lowest=False)
             
-    
-    
+            
         # Compute crosstab from binned variable and target variable and covert it to a data frame
         freq_table = pd.crosstab(dfrm["predictor_var_binned"],dfrm["target_var"], dropna=True)
         freq_table = freq_table.reset_index(drop=False)
@@ -54,7 +51,6 @@ def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, sto
         woe_dfrm = pd.DataFrame(freq_table) # Convert frequency table to data frame
         woe_dfrm = woe_dfrm.set_index(["predictor_var_binned"])
         
-        #woe_dfrm = woe_dfrm[['good', 'bad']]  # Select columns with raw frequencies only
         # Compute columns percents for target classes from crosstab frequencies
         woe_dfrm["col_perc_a"] = woe_dfrm[good]/sum(woe_dfrm[good])
         woe_dfrm["col_perc_b"] = woe_dfrm[bad]/sum(woe_dfrm[bad])
@@ -88,7 +84,6 @@ def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, sto
                 freq_table =freq_table.append(missing,ignore_index=True, sort=False)
                 woe_dfrm = pd.DataFrame(freq_table) # Convert frequency table to data frame
                 woe_dfrm = woe_dfrm.set_index(["predictor_var_binned"])
-                #woe_dfrm = woe_dfrm[['good', 'bad']]  # Select columns with raw frequencies only
                 # Compute columns percents for target classes from crosstab frequencies
                 woe_dfrm["col_perc_a"] = woe_dfrm[good]/sum(woe_dfrm[good])
                 woe_dfrm["col_perc_b"] = woe_dfrm[bad]/sum(woe_dfrm[bad])
@@ -494,9 +489,7 @@ def woe_binning_2 (df, target_var, pred_var, min_perc_total, min_perc_class, sto
             
         binning=look_up_table
             
-            
-    
-            
+             
     #### Check for correct variable specification and
     #### generate requested output, in case specification is correct
     
@@ -581,4 +574,4 @@ def woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_
     return woe_binning_2(df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, bad, good)
 
 #woe_binning (df, target_var, pred_var, min_perc_total, min_perc_class, stop_limit, abbrev_fact_levels, event_class)     
-woe_binning(df, 'credit_risk', 'amount', 0.05, 0, 0.1, 50, 'bad')
+binning = woe_binning(df, 'credit_risk', 'purpose', 0.05, 0, 0.1, 50, 'bad')
