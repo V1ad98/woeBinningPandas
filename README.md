@@ -23,7 +23,7 @@ import copy
 
 >git clone https://github.com/V1ad98/woeBinningPandas.git
 
-File woeBinningPandas is ready to go!
+#### File woeBinningPandas is ready to go!
 ### Set your variable CSV file
 > yourvariable = pd.read_csv('Yourfile.csv')
 ### Set the df variable and specify the column names from your CSV file, which you want to use.
